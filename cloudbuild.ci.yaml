@@ -1,0 +1,24 @@
+steps:
+  - name: gcr.io/google.com/cloudsdktool/cloud-sdk
+    dir: functions
+    entrypoint: /bin/bash
+    args:
+      [
+        "-c",
+        "gcloud secrets versions access latest --secret=SECRET_NAME > service-account-key.json"
+      ]
+
+  - name: gcr.io/$PROJECT_ID/firebase:node12
+    dir: functions
+    args: ["yarn install"]
+
+  - name: gcr.io/$PROJECT_ID/firebase:node12
+    dir: functions
+    args: ["yarn lint"]
+
+  - name: gcr.io/$PROJECT_ID/firebase:node12
+    dir: functions
+    args: ["yarn test"]
+    env:
+      - "GOOGLE_APPLICATION_CREDENTIALS=/workspace/functions/service-account-key.json"
+      - "GCLOUD_PROJECT=PROJECT_ID"
