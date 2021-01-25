@@ -1,5 +1,5 @@
-FROM node:12-slim
+FROM node:12-alpine
 
 RUN yarn global add firebase-tools
 
-ENTRYPOINT ["/bin/bash", "-c"]
+ENTRYPOINT ["/bin/ash", "-c"]

@@ -1,4 +1,4 @@
-FROM node:12-slim
+FROM node:12-alpine
 
 ARG firebase_token
 ARG ci_project_id
@@ -24,4 +24,4 @@ RUN yarn install
 
 COPY functions .
 
-CMD ["/bin/bash"]
+CMD ["/bin/ash"]
